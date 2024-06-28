@@ -1,11 +1,4 @@
-
-
-
-
-
-
-
-
+https://www.loom.com/share/a774b128b10f4b79ad7677b760e25c80?sid=0df95588-4057-4e93-a3a0-d2b8848d0500
 
 ## Getting Started
 
@@ -115,7 +108,7 @@ To set up the project on your local machine, follow these steps:
    - Navigate to the directory where you want to clone the repository.
    - Run the following command:
      ```bash
-     git clone https://github.com/yourusername/textprocessing-tool.git
+   
      ```
 
 3. **Open the Project in VSCode**
