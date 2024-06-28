@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controller class for the main UI functionality.
+ */
 public class MainUIController {
 
     @FXML
@@ -42,12 +45,20 @@ public class MainUIController {
     private DataManager dataManager;
     private int currentId = 1;
 
+    /**
+     * Initializes the controller, setting up data manager and list view.
+     */
     @FXML
     public void initialize() {
         dataManager = new DataManager();
         entriesListView.setItems(dataManager.getEntriesList());
     }
 
+
+    
+    /**
+     * Finds and counts regex matches in the text pool.
+     */
     @FXML
     public void findMatches() {
         String regex = regexField.getText();
@@ -73,6 +84,12 @@ public class MainUIController {
         }
     }
 
+
+
+
+    /**
+     * Replaces regex matches in the text pool with specified replacement text.
+     */
     @FXML
     public void replaceMatches() {
         String regex = regexField.getText();
@@ -85,7 +102,6 @@ public class MainUIController {
         }
 
         try {
-    
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(text);
 
@@ -93,7 +109,6 @@ public class MainUIController {
 
             int lastEnd = 0;
             while (matcher.find()) {
-        
                 Text beforeMatch = new Text(text.substring(lastEnd, matcher.start()));
                 resultText.getChildren().add(beforeMatch);
 
@@ -115,7 +130,11 @@ public class MainUIController {
     }
 
 
-    
+
+
+    /**
+     * Adds the current result as an entry to the data manager.
+     */
     @FXML
     public void addEntry() {
         StringBuilder contentBuilder = new StringBuilder();
@@ -141,9 +160,12 @@ public class MainUIController {
 
 
 
+
+    /**
+     * Loads content from a selected file into the text pool.
+     */
     @FXML
     public void updateEntry() {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         File selectedFile = fileChooser.showOpenDialog(null);
@@ -163,30 +185,32 @@ public class MainUIController {
 
 
 
+
+    /**
+     * Deletes the selected entry from the collections.
+     */
     @FXML
     public void deleteEntry() {
-    
         TextEntry entry = entriesListView.getSelectionModel().getSelectedItem();
-    
+
         if (entry != null) {
-        
             dataManager.removeFromList(entry);
             dataManager.removeFromSet(entry);
             dataManager.removeFromMap(entry.getId());
-    
-        
+
             entriesListView.getItems().remove(entry);
-    
+
             showAlert("Info", "Entry removed from collections.");
         }
-    
-        
+
         resultText.getChildren().clear();
     }
 
 
-    
-    
+
+    /**
+     * Shows all entries in the data manager.
+     */
     @FXML
     public void showAllEntries() {
         StringBuilder sb = new StringBuilder();
@@ -197,6 +221,10 @@ public class MainUIController {
         showAlert("All Entries", sb.toString());
     }
 
+
+    /**
+     * Exports the current result as a text file.
+     */
     @FXML
     public void exportEntry() {
         FileChooser fileChooser = new FileChooser();
@@ -204,7 +232,6 @@ public class MainUIController {
         File file = fileChooser.showSaveDialog(null);
 
         if (file != null) {
-    
             StringBuilder contentBuilder = new StringBuilder();
             for (javafx.scene.Node node : resultText.getChildren()) {
                 if (node instanceof Text) {
@@ -223,10 +250,12 @@ public class MainUIController {
         }
     }
 
-    
-    /** 
-     * @param title
-     * @param message
+
+    /**
+     * Shows an alert dialog with the given title and message.
+     *
+     * @param title   Title of the alert
+     * @param message Message content of the alert
      */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
