@@ -114,6 +114,8 @@ public class MainUIController {
         }
     }
 
+
+    
     @FXML
     public void addEntry() {
         StringBuilder contentBuilder = new StringBuilder();
@@ -136,6 +138,8 @@ public class MainUIController {
         dataManager.addToMap(entry);
         showAlert("Info", "Entry added to collections.");
     }
+
+
 
     @FXML
     public void updateEntry() {
